@@ -1,13 +1,16 @@
 :: regexDirCleaner v1.0
 :: Author: wvzxn // https://github.com/wvzxn/
 :: Description: The script will delete everything except what you specify as regex.
+:: If the regex command is empty, the script will delete only empty folders.
 @echo off
 if not exist "%~1" ( echo works only with drag'n'drop& timeout 4 >nul& goto:eof)
-echo Enter regex command
-set /p "cmnd=:"
+for /f "usebackq delims=" %%A in (` findstr /b :: "%~f0" `) do echo %%A
+echo.
+echo Enter regex command:
+set /p "cmnd="
 :i
 echo.
-echo ====  %~1%  ====
+echo ====  %~1  ====
 set "a=%~1"
 set b=%a:\=\\%
 set "pwsh=(gci '%~1' -att !d -recurse).fullname|?{$_ -notmatch '(.*%b%\\)(%cmnd%)'}"
