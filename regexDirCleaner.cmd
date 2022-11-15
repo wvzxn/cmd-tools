@@ -2,7 +2,7 @@
 :: Author: wvzxn // https://github.com/wvzxn/
 :: Description: The script will delete everything except what you specify as regex.
 @echo off
-if not exist "%~1" ( echo works only with drag'n'drop& timeout 4 2>nul& goto:eof)
+if not exist "%~1" ( echo works only with drag'n'drop& timeout 4 >nul& goto:eof)
 echo Enter regex command
 set /p "cmnd=:"
 :i
