@@ -11,8 +11,7 @@ echo ====  %~1%  ====
 set "a=%~1"
 set b=%a:\=\\%
 set "pwsh=(gci '%~1' -att !d -recurse).fullname|?{$_ -notmatch '(.*%b%\\)(%cmnd%)'}"
-if "%cmnd%"=="" ( echo yes) else ( echo no)
-for /f "usebackq delims=" %%A in (` powershell "%pwsh%"`) do del /q "%%A"
+if not "%cmnd%"=="" ( for /f "usebackq delims=" %%A in (` powershell "%pwsh%"`) do del /q "%%A")
 for /f "usebackq delims=" %%A in (`" dir "%~1" /ad/b/s | sort /r "`) do rd "%%A" 2>nul
 shift
 if exist "%~1" ( goto:i)
