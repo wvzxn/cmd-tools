@@ -1,9 +1,10 @@
-::        Name: sandbox2here v1.0i
-::      Author: wvzxn // https://github.com/wvzxn/
-:: Description: The script creates a correct copy of 'DefaultBox'.
+::         Name: sandbox2here v1.0i
+::       Author: wvzxn // https://github.com/wvzxn/
+::  Description: The script creates a correct copy of 'DefaultBox'.
+
 @echo off
 if not "%1"=="am_admin" ( powershell start -verb runas '%0' 'am_admin "%~1" "%~2"' & exit )
-for /f "usebackq delims=" %%A in (` findstr /b :: "%~f0" `) do echo %%A
+for /f "usebackq delims=" %%A in (` findstr /b /c:"::  " "%~f0" `) do echo %%A
 echo.
 set "SB_C=%SystemDrive%\Sandbox\%username%\DefaultBox\drive\C"
 set "SB_ProgramData=%SystemDrive%\Sandbox\%username%\DefaultBox\user\all"

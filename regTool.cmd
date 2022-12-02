@@ -1,13 +1,13 @@
-::        Name: regTool v1.0i
-::      Author: wvzxn // https://github.com/wvzxn/
-:: Description: regTool contains a collection of scripts to work with .reg files.
-:: 
-::              1) Create .reg with replaced UserID's '[HKEY_USERS*]' --> '[HKEY_CURRENT_USER*]'
-::              2) Create Uninstall .reg              '[HKEY_*]'      --> '[-HKEY_*]'
+::         Name: regTool v1.0i
+::       Author: wvzxn // https://github.com/wvzxn/
+::  Description: regTool contains a collection of scripts to work with .reg files.
+::               1) Create .reg with replaced UserID's '[HKEY_USERS*]' --> '[HKEY_CURRENT_USER*]'
+::               2) Create Uninstall .reg              '[HKEY_*]'      --> '[-HKEY_*]'
+
 @echo off
 if not exist "%~1" ( echo works only with drag'n'drop& timeout 4 1>nul& goto:eof)
 setlocal EnableDelayedExpansion
-for /f "usebackq delims=" %%A in (` findstr /b :: "%~f0" `) do echo %%A
+for /f "usebackq delims=" %%A in (` findstr /b /c:"::  " "%~f0" `) do echo %%A
 echo.
 set /p "cmnd=Enter the number:"
 
