@@ -1,6 +1,7 @@
 ::         Name: regTool v1.0i
 ::       Author: wvzxn // https://github.com/wvzxn/
 ::  Description: regTool contains a collection of scripts to work with .reg files.
+::  
 ::               1) Create .reg with replaced UserID's '[HKEY_USERS*]' --> '[HKEY_CURRENT_USER*]'
 ::               2) Create Uninstall .reg              '[HKEY_*]'      --> '[-HKEY_*]'
 
