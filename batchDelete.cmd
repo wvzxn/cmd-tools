@@ -1,37 +1,43 @@
-::         Name: batchDelete v1.1
+::         Name: batchDelete v1.2
 ::       Author: wvzxn // https://github.com/wvzxn/
+::  
 ::  Description: Delete items by query in current folder and subfolders.
 ::               If the regex command is empty, the script will delete empty folders recursively.
-::  
-::               regex: - The regex string
-::  
-::               Include/Exclude mode:
-::                  [1] - delete everything that matches the regex string
-::                  [2] - delete everything that not matches the regex string
-::  
 ::               File Name/Full Path mode:
 ::                  [1] - the regex string matches only the file name
 ::                  [2] - the regex string matches full path to the file
+::               Match/Not Match:
+::                  [1] - delete everything that matches the regex string
+::                  [2] - delete everything that not matches the regex string
+::               regex:
+::                  [?] - the regex string
 
 @echo off
 setlocal EnableDelayedExpansion
 for /f "usebackq delims=" %%A in (` findstr /b /c:"::  " "%~f0" `) do echo %%A
 echo.
-set /p "c=regex: "
-set /p "b=Include/Exclude mode: "
-set /p "a=File Name/Full Path mode: "
 
-if "%a%"=="1" ( set "prop=name") else ( set "prop=fullname")
-if "%b%"=="1" ( set "not=") else ( set "not=not")
+set /p "mode=File Name/Full Path mode: "
+set /p "not=Match/Not Match: "
+set /p "regex=regex: "
+if "!not!"=="1" ( set "not=") else ( set "not=not")
 
 :loop
-if exist "%~1" ( set "d=%~f1\") else ( set "d=%~dp0")
-if not "%a%"=="1" ( set "r=.*%d:\=\\%")
-if not "%c%"=="" (
-    powershell "gci '!d!' -file -recurse|?{"$^($_.!prop!^)" -!not!match '!r!!c!'}|ri -force"
-) else (
-    for /f "usebackq delims=" %%A in (`" dir "%~1" /ad/b/s | sort /r "`) do rd "%%A" 2>nul
-)
+if exist %1 ( set "dir=%~f1\") else ( set "dir=%~dp0")
+if not "!regex!"=="" ( if "!mode!"=="1" ( call:name) else ( call:path)) else ( call:delEmptyDir)
 shift
-if exist "%~1" ( goto:loop)
+if exist %1 ( goto:loop)
 pause
+exit
+
+:name
+powershell "gci '!dir!' -file -recurse|?{($_.name) -!not!match '!regex!'}|ri -force"
+exit /b
+
+:path
+powershell "(gci '!dir!' -file -recurse).fullname|?{($_.replace('!dir!','')) -!not!match '!regex!'}|ri -force"
+exit /b
+
+:delEmptyDir
+for /f "delims=" %%A in (' dir %1 /ad/b/s ^| sort /r ') do rd "%%A" 2>nul
+exit /b
