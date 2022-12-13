@@ -1,5 +1,6 @@
 ::         Name: sandbox2here v1.0i
 ::       Author: wvzxn // https://github.com/wvzxn/
+::  
 ::  Description: The script creates a correct copy of 'DefaultBox'.
 
 @echo off

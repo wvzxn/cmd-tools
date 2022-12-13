@@ -1,8 +1,8 @@
-::         Name: batchRename v1.1
+::         Name: batchRename v1.1i
 ::       Author: wvzxn // https://github.com/wvzxn/
+::  
 ::  Description: Rename item by query in folder and subfolders.
 ::               Drag'n'Drop is supported.
-::               
 ::                       Find: Files/Folders to find (wildcard, regex is not supported)
 ::               Replace this: The characters to find (regex)
 ::                         By: The characters to replace them with (regex)
