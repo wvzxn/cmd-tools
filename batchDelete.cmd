@@ -1,4 +1,4 @@
-::         Name: batchDelete v1.2
+::         Name: batchDelete v1.2f
 ::       Author: wvzxn // https://github.com/wvzxn/
 ::  
 ::  Description: Delete items by query in current folder and subfolders.
@@ -23,10 +23,10 @@ set /p "regex=regex: "
 if "!not!"=="1" ( set "not=") else ( set "not=not")
 
 :loop
-if exist %1 ( set "dir=%~f1\") else ( set "dir=%~dp0")
+if exist "%~1" ( set "dir=%~f1\") else ( set "dir=%~dp0")
 if not "!regex!"=="" ( if "!mode!"=="1" ( call:name) else ( call:path)) else ( call:delEmptyDir)
 shift
-if exist %1 ( goto:loop)
+if exist "%~1" ( goto:loop)
 pause
 exit
 
@@ -39,5 +39,5 @@ powershell "(gci '!dir!' -file -recurse).fullname|?{($_.replace('!dir!','')) -!n
 exit /b
 
 :delEmptyDir
-for /f "delims=" %%A in (' dir %1 /ad/b/s ^| sort /r ') do rd "%%A" 2>nul
+for /f "delims=" %%A in (' dir "%~1" /ad/b/s ^| sort /r ') do rd "%%A" 2>nul
 exit /b
