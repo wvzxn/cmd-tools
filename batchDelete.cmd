@@ -35,7 +35,7 @@ powershell "gci '!dir!' -file -recurse|?{($_.name) -!not!match '!regex!'}|ri -fo
 exit /b
 
 :path
-powershell "(gci '!dir!' -file -recurse).fullname|?{($_.replace([regex]::escape('!dp0!'),'')) -!not!match '!regex!'}|ri -force"
+powershell "(gci '!dir!' -file -recurse).fullname|?{($_ -replace [regex]::escape('!dir!'),'') -!not!match '!regex!'}|ri -force"
 exit /b
 
 :delEmptyDir
