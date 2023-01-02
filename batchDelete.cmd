@@ -1,4 +1,4 @@
-::         Name: batchDelete v1.2f
+::         Name: batchDelete v1.2f2
 ::       Author: wvzxn // https://github.com/wvzxn/
 ::  
 ::  Description: Delete items by query in current folder and subfolders.
@@ -35,7 +35,7 @@ powershell "gci '!dir!' -file -recurse|?{($_.name) -!not!match '!regex!'}|ri -fo
 exit /b
 
 :path
-powershell "(gci '!dir!' -file -recurse).fullname|?{($_.replace('!dir!','')) -!not!match '!regex!'}|ri -force"
+powershell "(gci '!dir!' -file -recurse).fullname|?{($_.replace([regex]::escape('!dp0!'),'')) -!not!match '!regex!'}|ri -force"
 exit /b
 
 :delEmptyDir
