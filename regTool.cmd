@@ -68,14 +68,6 @@ if exist "!dp1!!a!!x1!" (
 )
 for /f "usebackq delims=" %%A in (` powershell "!b!"`) do (
     set "i=%%A"
-    if "!i:~0,1!"=="[" ( echo.)
-    echo !i!
-)
-exit /b
-
-
-for /f "usebackq delims=" %%A in (` powershell "!b!"`) do (
-    set "i=%%A"
     if "!i:~0,1!"=="[" ( echo:>> "!dp1!!a!!x1!"& echo.)
     echo !i!>> "!dp1!!a!!x1!"
     echo !i!
