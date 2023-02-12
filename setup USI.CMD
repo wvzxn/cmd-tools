@@ -58,7 +58,7 @@ pause
 exit /b 0
 
 :3
-powershell -executionpolicy bypass -command "[Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12;iwr 'https://github.com/wvzxn/universal-symlink-installer/releases/latest/download/usi.cmd' -outFile '!dp0!usi.cmd'"
+powershell -executionpolicy bypass -command "[Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12;iwr 'https://raw.githubusercontent.com/wvzxn/universal-symlink-installer/master/usi.cmd' -outFile '!dp0!usi.cmd'"
 echo ^[+^] Done!
 pause
 exit /b 0
