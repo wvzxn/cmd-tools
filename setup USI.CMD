@@ -70,7 +70,7 @@ if exist "usi.cmd" (
     del /q "usi_.cmd"
 )
 if "!r!"=="" ( call:regex)
-for /f "usebackq delims=" %%A in (` powershell "gci '!dp0!C' -recurse|?{($_.name -match '!r!') -and ($_.fullname -notmatch '\\C\\.*?(!r!).*?(!r!)')}|%%{$_.fullname -replace [regex]::escape('!dp0!'),''}|sort" `) do (
+for /f "usebackq delims=" %%A in (` powershell "gci '!dp0!C' -recurse|?{$_.name -match '!r!'}|?{$_.fullname -notmatch '\\C\\.*?(!r!).*?\\.*?(!r!)'}|%%{$_.fullname -replace [regex]::escape('!dp0!'),''}|sort" `) do (
     echo ::: %%A
     echo ::: %%A>> "USI.CMD"
 )
