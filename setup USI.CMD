@@ -48,7 +48,7 @@ exit /b 0
 call:regex
 if "!r!"=="" ( exit /b 0 )
 powershell "(gci '!dp0!C' -recurse|?{-not($_.psIsContainer)}).fullname|?{($_ -replace [regex]::escape('!dp0!'),'') -notmatch '!r!'}|sort|%%{write-host '[-] ' -nonewline;echo $_;ri $_ -force}"
-for /f "usebackq delims=" %%A in (` powershell "(gci '!dp0!C' -recurse|?{-not($_.psIsContainer)}|?{($_.name -match 'unins.*?\.') -or ($_.fullname -match 'Microsoft\\Windows\\Start.?Menu')}).fullname|sort" `) do (
+for /f "usebackq delims=" %%A in (` powershell "(gci '!dp0!C' -recurse|?{-not($_.psIsContainer)}|?{($_.name -match 'unins.*?\.') -or ($_.fullname -match '((Microsoft\\Windows\\Start.?Menu)|(\\Desktop\\.+?\.lnk))')}).fullname|sort" `) do (
     echo ^[-^] %%A
     del /f /q "%%A"
 )
