@@ -8,7 +8,7 @@
 ::    Commands:
 ::      [1] Copy Sandboxie content to the current folder
 ::      [2] Delete junk (all except [regex])
-::      [3] Download USI.CMD
+::      [3] Download USI.CMD / regTool.cmd
 ::      [4] Get and replace commands for USI.CMD [regex]
 
 @echo off
@@ -58,7 +58,16 @@ pause
 exit /b 0
 
 :3
-powershell -executionpolicy bypass -command "[Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12;iwr 'https://raw.githubusercontent.com/wvzxn/universal-symlink-installer/master/usi.cmd' -outFile '!dp0!lf';gc '!dp0!lf'|sc '!dp0!USI.CMD';ri '!dp0!lf'"
+echo ^[1^] - Download USI.CMD
+echo ^[2^] - Download regTool.cmd
+call:userPrompt
+if not "!KEY:~0,1!"=="D" ( exit /b 0 )
+if "!KEY!"=="D1" (
+    powershell -executionpolicy bypass -command "[Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12;iwr 'https://raw.githubusercontent.com/wvzxn/universal-symlink-installer/master/usi.cmd' -outFile '!dp0!lf';gc '!dp0!lf'|sc '!dp0!USI.CMD';ri '!dp0!lf'"
+)
+if "!KEY!"=="D2" (
+    powershell -executionpolicy bypass -command "[Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12;iwr 'https://raw.githubusercontent.com/wvzxn/cmd-tools/master/regTool.cmd' -outFile '!dp0!reglf';gc '!dp0!reglf'|sc '!dp0!regTool.cmd';ri '!dp0!reg'"
+)
 echo ^[+^] Done!
 pause
 exit /b 0
