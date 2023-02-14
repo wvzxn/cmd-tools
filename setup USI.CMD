@@ -66,7 +66,7 @@ if "!KEY!"=="D1" (
     powershell -executionpolicy bypass -command "[Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12;iwr 'https://raw.githubusercontent.com/wvzxn/universal-symlink-installer/master/usi.cmd' -outFile '!dp0!lf';gc '!dp0!lf'|sc '!dp0!USI.CMD';ri '!dp0!lf'"
 )
 if "!KEY!"=="D2" (
-    powershell -executionpolicy bypass -command "[Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12;iwr 'https://raw.githubusercontent.com/wvzxn/cmd-tools/master/regTool.cmd' -outFile '!dp0!reglf';gc '!dp0!reglf'|sc '!dp0!regTool.cmd';ri '!dp0!reg'"
+    powershell -executionpolicy bypass -command "[Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12;iwr 'https://raw.githubusercontent.com/wvzxn/cmd-tools/master/regTool.cmd' -outFile '!dp0!reglf';gc '!dp0!reglf'|sc '!dp0!regTool.cmd';ri '!dp0!reglf'"
 )
 echo ^[+^] Done!
 pause
