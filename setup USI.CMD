@@ -1,4 +1,4 @@
-::  setup USI.CMD v1.0
+::  setup USI.CMD v1.1
 ::  
 ::  [Author]
 ::    wvzxn | https://github.com/wvzxn/
@@ -10,6 +10,7 @@
 ::      [2] Delete junk (all except [regex])
 ::      [3] Download USI.CMD / regTool.cmd
 ::      [4] Get and replace commands for USI.CMD [regex]
+::      [5] Update USI.CMD
 
 @echo off
 title setup USI.CMD
@@ -26,6 +27,7 @@ if "!KEY!"=="D1" ( call:1)
 if "!KEY!"=="D2" ( call:2)
 if "!KEY!"=="D3" ( call:3)
 if "!KEY!"=="D4" ( call:4)
+if "!KEY!"=="D5" ( call:5)
 cls
 goto:menu
 
@@ -67,10 +69,10 @@ echo ^[2^] - Download regTool.cmd
 call:userPrompt
 if not "!KEY:~0,1!"=="D" ( exit /b 0 )
 if "!KEY!"=="D1" (
-    powershell -executionpolicy bypass -command "[Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12;iwr 'https://raw.githubusercontent.com/wvzxn/universal-symlink-installer/master/usi.cmd' -outFile '!dp0!lf';gc '!dp0!lf'|sc '!dp0!USI.CMD';ri '!dp0!lf'"
+    powershell "[Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12;iwr 'https://raw.githubusercontent.com/wvzxn/universal-symlink-installer/master/usi.cmd' -outFile '!dp0!lf';gc '!dp0!lf'|sc '!dp0!USI.CMD';ri '!dp0!lf'"
 )
 if "!KEY!"=="D2" (
-    powershell -executionpolicy bypass -command "[Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12;iwr 'https://raw.githubusercontent.com/wvzxn/cmd-tools/master/regTool.cmd' -outFile '!dp0!reglf';gc '!dp0!reglf'|sc '!dp0!regTool.cmd';ri '!dp0!reglf'"
+    powershell "[Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12;iwr 'https://raw.githubusercontent.com/wvzxn/cmd-tools/master/regTool.cmd' -outFile '!dp0!reglf';gc '!dp0!reglf'|sc '!dp0!regTool.cmd';ri '!dp0!reglf'"
 )
 echo ^[+^] Done!
 pause
@@ -88,6 +90,16 @@ for /f "usebackq delims=" %%A in (` powershell "gci '!dp0!C' -recurse|?{$_.name 
     echo ::: %%A>> "USI.CMD"
 )
 pause
+exit /b 0
+
+:5
+if exist "USI.CMD" (
+    ren "USI.CMD" "usi.old"
+    powershell "[Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12;iwr 'https://raw.githubusercontent.com/wvzxn/universal-symlink-installer/master/usi.cmd' -outFile '!dp0!lf_'"
+    powershell "(gc '!dp0!lf_'|sls '^^\:\:\:\s' -notmatch).line|sc '!dp0!USI.CMD';(sls '^^\:\:\:\s' '!dp0!usi.old').line|ac '!dp0!USI.CMD';ri '!dp0!lf_'"
+	pause
+    del /q "usi.old"
+)
 exit /b 0
 
 :testFolderName
